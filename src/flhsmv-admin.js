@@ -4,12 +4,11 @@ export default function DisplaySubmissions() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-  fetch("https://flhsmv-backend.onrender.com/data")
-    .then((res) => res.json())
-    .then((data) => setData(data))
-    .catch((err) => console.error("Error fetching data:", err));
-}, []);
-
+    fetch("https://flhsmv-backend.onrender.com/data")
+      .then((res) => res.json())
+      .then((data) => setData(data))
+      .catch((err) => console.error("Error fetching data:", err));
+  }, []);
 
   return (
     <div>
