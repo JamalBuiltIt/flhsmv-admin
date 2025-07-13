@@ -5,19 +5,24 @@ export default function DisplaySubmissions() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // ✅ Use environment variable or fallback
+  const API_URL = process.env.REACT_APP_API_URL || "https://flhsmv-backend.onrender.com";
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       setError(null);
       try {
-        const response = await fetch("https://flhsmv-backend.onrender.com/data");
+        const response = await fetch(`${API_URL}/data`, {
+          headers: {
+            Accept: "application/json"
+          }
+        });
 
-        // Check for HTTP errors
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status} ${response.statusText}`);
         }
 
-        // Try to parse JSON, catch invalid JSON errors
         let jsonData;
         try {
           jsonData = await response.json();
@@ -25,7 +30,6 @@ export default function DisplaySubmissions() {
           throw new Error("Failed to parse JSON response: " + jsonErr.message);
         }
 
-        // Validate data type
         if (!Array.isArray(jsonData)) {
           throw new Error("Response data is not an array");
         }
@@ -40,7 +44,7 @@ export default function DisplaySubmissions() {
     };
 
     fetchData();
-  }, []);
+  }, [API_URL]);
 
   if (loading) {
     return <p>Loading submissions...</p>;
