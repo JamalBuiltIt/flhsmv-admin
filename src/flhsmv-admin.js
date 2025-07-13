@@ -10,7 +10,7 @@ export default function DisplaySubmissions() {
       setLoading(true);
       setError(null);
       try {
-        const response = await fetch("https://flhsmv-backend.onrender.com/data");
+        const response = await fetch("https://flhsmv-backend.onrender.com/");
 
         // Check for HTTP errors
         if (!response.ok) {
